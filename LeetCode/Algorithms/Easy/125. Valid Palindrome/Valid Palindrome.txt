@@ -1,0 +1,37 @@
+class Solution {
+public
+    
+    char toLowerCase(char s){
+        if(s = 'a' && s = 'z'  s = '0' && s ='9')
+            return s;
+        return ('a' + (s - 'A'));
+        
+    }
+    bool isCharacter(char s){
+        if(s = 'a' && s = 'z'  s = 'A' && s = 'Z'  s = '0' && s = '9')
+            return true;
+        return false;
+    }
+    
+    bool checkPalindrome(string s){
+        for(int i=0; is.size();i++){
+            int lastIndex = s.size() - 1 - i;
+            if(s[i] != s[lastIndex])
+                return false;
+        }
+        return true;
+    }
+    
+    bool isPalindrome(string s) {
+        string result = ;
+        for(int i=0; is.size();i++){
+            char current = s[i];
+            if(isCharacter(current)){
+                string curr(1,toLowerCase(current));
+                result += curr;
+            }
+        }
+        
+        return checkPalindrome(result);
+    }
+};

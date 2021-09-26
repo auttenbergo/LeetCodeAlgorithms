@@ -1,0 +1,51 @@
+class Solution {
+public:
+    
+    void fillStartWithZeros(string& s,int k){
+        for(int i=0; i<k;i++){
+            s = "0" + s;
+        }
+    }
+    
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+        string first = "";
+        for(int i=0; i<num.size();i++)
+            first += ('0'+num[i]);
+        string second = to_string(k);
+        
+        if(first.size() <= second.size())
+            fillStartWithZeros(first,second.size()-first.size());
+        else
+            fillStartWithZeros(second,first.size()-second.size());
+        
+        
+        int saved = 0;
+        string result = "";
+        for(int i=first.size()-1; i>=0; i--){
+            int sum = (first[i]-'0') + (second[i]-'0') + saved;
+            saved = sum / 10;
+            if(sum > 9){
+                sum = sum % 10;
+            }
+            result = to_string(sum) + result;
+        }
+        if(saved != 0)
+            result = to_string(saved) + result;
+        
+        int index = 0;
+        while(index < result.size() && result[index] == '0')
+            index++;
+        
+        if(index == result.size())
+            return {0};
+        
+        
+        vector<int> resultNum;
+        while(index < result.size()){
+            resultNum.push_back(result[index] - '0');
+            index++;
+        }
+        
+        return resultNum;
+    }
+};

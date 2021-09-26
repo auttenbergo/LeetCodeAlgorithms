@@ -1,0 +1,31 @@
+class Solution {
+public:
+    
+    set<int> getSameElements(vector<int>& nums1, vector<int>& nums2){
+        set<int> result;
+        
+        for(int i=0; i<nums1.size();i++){
+            if(find(nums2.begin(),nums2.end(),nums1[i]) != nums2.end())
+                result.insert(nums1[i]);
+        }
+        
+        return result;
+    }
+    
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        set<int> diff;
+        
+        if(nums1.size() <= nums2.size()){
+            diff = getSameElements(nums1,nums2);
+        } else {
+            diff = getSameElements(nums2,nums1);
+        }
+        
+        vector<int> result;
+        for(auto itr = diff.begin(); itr != diff.end(); ++itr){
+            result.push_back(*itr);
+        }
+        return result;
+        
+    }
+};

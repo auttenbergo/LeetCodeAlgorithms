@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    int binarySearch(vector<int>& nums,int left,int right,int& target){
+        if(left > right)
+            return -1;
+        
+        int middle = left + (right - left) / 2;
+        
+        if(nums[middle] == target)
+            return middle;
+        
+        if(nums[middle] > target)
+            return binarySearch(nums,left,middle-1,target);
+        return binarySearch(nums,middle+1,right,target);
+    }
+    
+    vector<int> searchRange(vector<int>& nums, int target) {
+        
+        vector<int> answer;
+        
+        int index = binarySearch(nums,0,nums.size()-1,target);
+        
+        if(index == -1)
+            return {-1,-1};
+        
+        int subIndex = index;
+        while(subIndex >= 0 && nums[subIndex] == target)
+            subIndex--;
+        
+        answer.push_back(subIndex+1);
+        
+        subIndex = index;
+        while(subIndex < nums.size() && nums[subIndex] == target)
+            subIndex++;
+        
+        answer.push_back(subIndex-1);
+        
+        return answer;
+        
+    }
+};

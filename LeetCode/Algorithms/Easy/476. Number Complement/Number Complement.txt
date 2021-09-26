@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        string str = bitset<32>(num).to_string();
+        int index = 0;
+        while(str[index] == '0')
+            index++;
+        
+        for(int i=index; i<str.size();i++){
+            if(str[i] == '0')
+                str[i] = '1';
+            else 
+                str[i] = '0';
+        }
+        return bitset<32>(str).to_ulong();
+    }
+};

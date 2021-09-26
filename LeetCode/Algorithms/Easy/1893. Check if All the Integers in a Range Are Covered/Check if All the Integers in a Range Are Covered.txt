@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isCovered(vector<vector<int>>& ranges, int left, int right) {
+        set<int> uncoveredRanges;
+        for(int i=left; i<=right;i++){
+            uncoveredRanges.insert(i);
+        }
+        for(int i=0;i<ranges.size();i++){
+            vector<int> range = ranges[i];
+            for(int j = range[0]; j <= range[1]; j++){
+                auto it = uncoveredRanges.find(j);
+                if(it != uncoveredRanges.end())
+                    uncoveredRanges.erase(it);
+            }
+            
+            if(uncoveredRanges.size() == 0)
+                return true;
+        }
+        return false;
+    }
+};

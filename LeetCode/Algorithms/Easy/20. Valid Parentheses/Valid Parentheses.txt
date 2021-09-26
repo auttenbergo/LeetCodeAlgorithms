@@ -1,0 +1,36 @@
+class Solution {
+public:
+    
+    bool isOpeningParentheses(char s){
+        if(s == '(' || s == '{' || s == '[')
+            return true;
+        return false;
+    }
+    bool isMatchingParentheses(char s1, char s2){
+        if(s1 == '(' && s2 == ')') return true;
+        if(s1 == '[' && s2 == ']') return true;
+        if(s1 == '{' && s2 == '}') return true;
+        return false;
+    }
+    
+    bool isValid(string s) {
+        stack<char> openingParentheses;
+        
+        for(int i=0; i < s.size(); i++){
+            
+            char current = s[i];
+            
+            if(isOpeningParentheses(current)){
+                openingParentheses.push(current);
+            } else {
+                if(openingParentheses.empty())
+                    return false;
+                char currentOpening = openingParentheses.top();
+                openingParentheses.pop();
+                if(!isMatchingParentheses(currentOpening,current))
+                    return false;
+            }
+        }
+        return openingParentheses.empty();
+    }
+};

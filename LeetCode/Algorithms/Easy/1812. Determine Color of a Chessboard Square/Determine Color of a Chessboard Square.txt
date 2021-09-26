@@ -1,0 +1,8 @@
+class Solution {
+public:
+    bool squareIsWhite(string coordinates) {
+        int coordinate1 = coordinates[0]-'a'+1;
+        int coordinate2 = coordinates[1]-'0';
+        return (coordinate1 + coordinate2) % 2 != 0;
+    }
+};

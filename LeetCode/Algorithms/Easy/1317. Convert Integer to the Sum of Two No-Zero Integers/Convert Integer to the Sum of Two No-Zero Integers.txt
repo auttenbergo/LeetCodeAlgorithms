@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> getNoZeroIntegers(int n) {
+        int left = 1;
+        int right = n-1;
+        while(left <= right){
+            string strLeft = to_string(left);
+            if(strLeft.find('0') < strLeft.size()){
+                left++;
+                right--;
+                continue;
+            }
+            string strRight = to_string(right);
+            if(strRight.find('0') < strRight.size()){
+                left++;
+                right--;
+                continue;
+            }
+                
+            return {left,right};
+        }
+        return {};
+    }
+};

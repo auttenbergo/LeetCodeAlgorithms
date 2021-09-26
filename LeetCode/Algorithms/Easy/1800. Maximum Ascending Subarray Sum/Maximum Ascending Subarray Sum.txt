@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxAscendingSum(vector<int>& nums) {
+        int maxSum = INT_MIN;
+
+        int index = 0;
+        while(index < nums.size()){
+            int sum = 0;
+            while(index < nums.size()-1 && nums[index] < nums[index+1]){
+                sum += nums[index];
+                index++;
+            }
+            sum += nums[index];
+            
+            index++;
+            
+            if(sum > maxSum)
+                maxSum = sum;
+        }
+        return maxSum;
+    }
+};

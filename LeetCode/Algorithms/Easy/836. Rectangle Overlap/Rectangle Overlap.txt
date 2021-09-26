@@ -1,0 +1,26 @@
+class Solution {
+public:
+    
+    bool isInRange(int target,int left,int right){
+        return target > left && target < right;
+    }
+    
+    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {
+        int x11 = rec1[0];
+        int x12 = rec1[2];
+        int y11 = rec1[1];
+        int y12 = rec1[3];
+        
+        int x21 = rec2[0];
+        int x22 = rec2[2];
+        int y21 = rec2[1];
+        int y22 = rec2[3];
+    
+        bool doesXOverlap = isInRange(x21,x11,x12) || isInRange(x22,x11,x12) ||     isInRange(x11,x21,x22) || isInRange(x12,x21,x22);
+        
+        bool doesYOverlap = isInRange(y21,y11,y12) || isInRange(y22,y11,y12) ||     isInRange(y11,y21,y22) || isInRange(y12,y21,y22);
+    
+        
+        return doesXOverlap && doesYOverlap;
+    }
+};

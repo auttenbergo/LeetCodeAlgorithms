@@ -1,0 +1,26 @@
+class Solution {
+public:
+    
+    bool isIsomorphic(string s, string t) {
+        if(s.size() != t.size())
+            return false;
+        if(s == t)
+            return true;
+        
+        map<char,char> replaceS;
+        map<char,char> replaceT;
+        
+        for(int i=0; i<s.size();i++){
+            char first = s[i];
+            char second = t[i];
+            
+            
+            if(replaceS.find(first) == replaceS.end() && replaceT.find(second) == replaceT.end()){
+                replaceS[first] = second;
+                replaceT[second] = first;
+            } else if(replaceS[first] != second || replaceT[second] != first)
+                return false;
+        }
+        return true;
+    }
+};

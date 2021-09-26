@@ -1,0 +1,19 @@
+class Solution {
+public:
+    
+ 
+    vector<int> twoSum(vector<int>& nums, int target) {
+        /* For each value stores the indice */
+        map<int,int> seen;
+        for(int i=0; i<nums.size();i++){
+            int current = nums[i];
+            int currentTarget = target - current;
+            if(seen.find(currentTarget) != seen.end()){
+                return {i, seen[currentTarget]};
+            }
+            seen[current] = i;
+            
+        }
+        return {};
+    }
+};

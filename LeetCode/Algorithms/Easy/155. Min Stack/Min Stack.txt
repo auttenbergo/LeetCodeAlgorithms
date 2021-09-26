@@ -1,0 +1,102 @@
+class MinStack {
+    
+private: 
+    int* arr;
+    int* min;
+    int currentLength;
+    int generalLength;
+    int currMinIndex;
+    
+    void expandArray(){
+        generalLength *= 2;
+        int* newArr = new int[generalLength];
+        int* newMin = new int[generalLength];
+        for(int i=0; i<currentLength;i++){
+            newArr[i] = arr[i];
+            newMin[i] = min[i];
+        }
+        delete[] arr;
+        delete[] min;
+        arr = newArr;
+        min = newMin;
+    }
+    
+    void removeFromMin(int elem){
+        
+        int i = currMinIndex;
+        while(i < currentLength){
+            if(min[i] == elem){
+                for(int j = i; j < currentLength-1; j++){
+                    min[j] = min[j+1];
+                }
+                
+                return;
+            }
+            i++;
+        }
+    }
+    
+    void addInMin(int elem){
+        /* If stack is empty */
+        if(currMinIndex == -1){
+            min[0] = elem;
+            currMinIndex = 0;
+            return;
+        }
+        /* If elem is less than the first elem */
+        if(elem < min[currMinIndex]){
+            for(int i = currentLength ; i > currMinIndex; i --){
+                min[i] = min[i-1];
+            }
+            min[currMinIndex] = elem;
+            return;
+        }
+        /* If elem should be inserted between */
+        for(int i=currMinIndex; i < currentLength-1; i++){
+            if(min[i] <= elem && elem <= min[i+1]){
+                for(int j = currentLength ; j > i+1; j--){
+                    min[j] = min[j-1];
+                }
+                min[i+1] = elem;
+                return;
+            }
+        }
+        
+        /* If elem is greater than the last */
+        min[currentLength] = elem;
+    }
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        currentLength = 0;
+        generalLength = 4;
+        currMinIndex = -1;
+        arr = new int[generalLength];
+        min = new int[generalLength];
+    }
+    
+    void push(int val) {
+        if(currentLength >= generalLength){
+            expandArray();
+        }
+        arr[currentLength] = val;
+        addInMin(val);
+        currentLength++;
+    }
+    
+    void pop() {
+        int rv = arr[currentLength - 1];
+        removeFromMin(rv);
+        currentLength--;
+    }
+    
+    int top() {
+        return arr[currentLength-1];
+    }
+    
+    int getMin() {
+        int rv = min[currMinIndex];
+        return rv;
+    }
+    
+};

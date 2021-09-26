@@ -1,0 +1,18 @@
+class Solution {
+public:
+    
+    char helper(vector<char>& letters,int left,int right,char target){
+        if(left > right)
+            return letters[left % letters.size()];
+        
+        int middle = left + (right - left) / 2;
+        
+        if(letters[middle] <= target)
+            return helper(letters,middle+1,right,target);
+        return helper(letters,left,middle-1,target);
+    }
+    
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        return helper(letters,0,letters.size()-1,target);
+    }
+};

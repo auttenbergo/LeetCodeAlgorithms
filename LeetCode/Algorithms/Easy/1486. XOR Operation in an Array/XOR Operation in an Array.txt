@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int xorOperation(int n, int start) {
+        int rv = start;
+        
+        int currValue = start + 2;
+        for(int i=1; i<n; i++){
+            rv ^= currValue;
+            currValue += 2;
+        }
+        return rv;
+    }
+};

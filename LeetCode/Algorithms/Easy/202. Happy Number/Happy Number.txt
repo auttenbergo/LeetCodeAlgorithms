@@ -1,0 +1,34 @@
+class Solution {
+public:
+    
+    int sumOfSquareDigits(int n){
+        int n1 = n;
+        int sum = 0;
+        while(n1 != 0){
+            int digit = n1 % 10;
+            sum += (digit * digit);
+            n1 /= 10;
+        }
+        return sum;
+    }
+    bool isHappy(int n) {
+        
+        int prevSum = n;
+        vector<int> used;
+        used.push_back(n);
+        while(true){
+            int sum = sumOfSquareDigits(n);
+            
+            if(sum == 1)
+                break;
+            
+            if(find(used.begin(),used.end(),sum) != used.end()){
+                return false;
+            }
+            used.push_back(sum);
+            n = sum;
+            prevSum = sum;
+        }
+        return true;
+    }
+};

@@ -1,0 +1,36 @@
+class Solution {
+public:
+    
+    string vowelsLowercase = "aeiou";
+    string vowelsUppercase = "AEIOU";
+    
+    bool isVowel(char s){
+        return (vowelsLowercase.find(s) != string::npos) || (vowelsUppercase.find(s) != string::npos);
+    }
+    
+    void getNextVowel(string s,int& index){
+        while(index < s.size() && !isVowel(s[index]))
+            index++;
+    }
+    void getPrevVowel(string s,int& index){
+        while(index >= 0 && !isVowel(s[index]))
+            index--;
+    }
+    
+    string reverseVowels(string s) {
+        string result = s;
+        
+        int leftIndex = 0; getNextVowel(s,leftIndex);
+        int rightIndex = s.size()-1; getPrevVowel(s,rightIndex);
+        
+        while(leftIndex <= rightIndex){
+            int tmp = result[leftIndex];
+            result[leftIndex] = result[rightIndex];
+            result[rightIndex] = tmp;
+            
+            leftIndex++; getNextVowel(s,leftIndex);
+            rightIndex--; getPrevVowel(s,rightIndex);
+        }
+        return result;
+    }
+};

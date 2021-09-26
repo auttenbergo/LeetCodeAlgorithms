@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int getMaximumGenerated(int n) {
+        if(n <= 1)
+            return n;
+        int dp[n+1];
+        dp[0] = 0;
+        dp[1] = 1;
+        int index = 1;
+        int max = 1;
+        while(index <= n){
+            int child1 = 2 * index;
+            if(child1 > n)
+                break;
+            int child2 = child1 + 1;
+            if(child2 > n)
+                break;
+            dp[child1] = dp[index];
+            dp[child2] = dp[index] + dp[index+1];
+            if(dp[child1] > max)
+                max = dp[child1];
+            else if(dp[child2] > max)
+                max = dp[child2];
+            index++;
+        }
+        return max;
+        
+    }
+};

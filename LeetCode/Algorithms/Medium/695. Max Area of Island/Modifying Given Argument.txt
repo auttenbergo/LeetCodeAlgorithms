@@ -1,0 +1,73 @@
+class Solution {
+public:
+    
+    struct Location{
+        int x;
+        int y;
+        
+        Location(int x1,int y1){
+            x = x1;
+            y = y1;
+        }
+    };
+    
+    bool inBounds(vector<vector<int>>& grid,Location location){
+        return location.x >= 0 && location.x < grid.size() && location.y >= 0 && location.y < grid[location.x].size();
+    }
+    
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int maxArea = 0;
+
+        for(int i=0; i<grid.size(); i++){
+            for(int j=0; j<grid[i].size();j++){
+                Location start(i,j);
+
+                if(grid[i][j] == 0)
+                    continue;
+                
+                grid[i][j] = 0;
+
+                queue<Location> bfs;
+                bfs.push(start);
+                
+                int currArea = 1;
+                
+                while(!bfs.empty()){
+                    Location current = bfs.front();
+                    bfs.pop();
+                    
+                    Location top(current.x-1,current.y);
+                    Location right(current.x,current.y+1);
+                    Location bottom(current.x+1,current.y);
+                    Location left(current.x,current.y-1);
+                    
+                    if(inBounds(grid,top) && grid[top.x][top.y] == 1){
+                        grid[top.x][top.y] = 0;
+                        currArea++;
+                        bfs.push(top);
+                    }
+                    if(inBounds(grid,right) && grid[right.x][right.y] == 1){
+                        grid[right.x][right.y] = 0;
+                        currArea++;
+                        bfs.push(right);
+                    }
+                    if(inBounds(grid,bottom) && grid[bottom.x][bottom.y] == 1){
+                        grid[bottom.x][bottom.y] = 0;
+                        currArea++;
+                        bfs.push(bottom);
+                    }
+                    if(inBounds(grid,left) && grid[left.x][left.y] == 1){
+                        grid[left.x][left.y] = 0;
+                        currArea++;
+                        bfs.push(left);
+                    }
+                    
+                }
+                
+                maxArea = max(maxArea,currArea);
+            }
+        }
+        
+        return maxArea;
+    }
+};

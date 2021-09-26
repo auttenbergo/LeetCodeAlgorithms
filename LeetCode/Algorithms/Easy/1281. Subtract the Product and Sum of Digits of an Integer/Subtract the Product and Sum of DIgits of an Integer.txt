@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int subtractProductAndSum(int n) {
+        unsigned long long product = 1;
+        unsigned long long sum = 0;
+        while(n != 0){
+            sum += n % 10;
+            product *= n % 10;
+            n /= 10;
+        }
+        return product - sum;
+    }
+};

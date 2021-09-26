@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    bool isLetter(char c){
+        return c >= 'a' && c <= 'z';
+    }
+    /* Dzagluka is my language slang for @ */
+    int getDzaglukaIndex(string email){
+        for(int i=0; i<email.size();i++){
+            if(email[i] == '@')
+                return i;
+        }
+        return -1;
+    }
+    
+    string parseString(string str){
+        string result = "";
+        for(int i=0; i<str.size();i++){
+            if(isLetter(str[i]))
+                result += str[i];
+            else if(str[i] == '+')
+                return result;
+        }
+        return result;
+    }
+    
+    string getMinimizedEmail(string email){
+        string result = "";
+        
+        int dzaglukaIndex = getDzaglukaIndex(email);
+        
+        string localname = email.substr(0,dzaglukaIndex);
+        string domainname = email.substr(dzaglukaIndex);
+        
+        string parsedLocal = parseString(localname);
+        
+        result = parsedLocal + "@" + domainname;
+        return result;
+    }
+    int numUniqueEmails(vector<string>& emails) {
+        set<string> uniques;
+        for(int i=0; i<emails.size();i++){
+            string minimized = getMinimizedEmail(emails[i]);
+            uniques.insert(minimized);
+        }
+        return uniques.size();
+    }
+};

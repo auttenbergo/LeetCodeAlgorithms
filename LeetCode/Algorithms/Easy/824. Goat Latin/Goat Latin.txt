@@ -1,0 +1,39 @@
+class Solution {
+public:
+    set<char> vowels = {'a','e','i','o','u','A','E','I','O','U'};
+    
+    bool isVowel(char c){
+        return vowels.find(c) != vowels.end();
+    }
+    
+    string convertToGoatLatin(string word,string& alpha){
+        char first = word[0];
+        if(isVowel(first))
+            word += "ma";
+        else
+            word = word.substr(1) + word[0] + "ma";
+        word += alpha;
+        alpha += "a";
+        return word;
+
+    }
+    
+    
+    string toGoatLatin(string sentence) {
+        string result = "";
+        
+        string word = "";
+        string alpha = "a";
+        
+        for(int i=0; i<sentence.size(); i++){
+            if(sentence[i] != ' ')
+                word += sentence[i];
+            else{
+                result += convertToGoatLatin(word,alpha) + " ";
+                word = "";
+            }
+        }
+        result += convertToGoatLatin(word,alpha);
+        return result;
+    }
+};

@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int length = area;
+        int width = 1;
+        
+        for(int i=1; i <= area / 2; i++){
+            int currWidth = i;
+            int currLength = area / currWidth;
+            if(area % currWidth != 0)
+                continue;
+            
+            if(abs(currWidth - currLength) < abs(width - length)){
+                width = currWidth;
+                length = currLength;
+            }
+            
+        }
+        vector<int> result = {length,width};
+        return result;
+    }
+};

@@ -1,0 +1,22 @@
+class Solution {
+public:
+    
+    int getNumericalValue(string s){
+        string numericValue = "";
+        for(int i=0;i<s.size();i++){
+            numericValue += to_string((s[i] - 'a'));
+        }
+        int index = 0;
+        while(index < numericValue.size() && numericValue[index] == '0')
+            index++;
+        
+        if(index == numericValue.size())
+            return 0;
+        
+        return stoi(numericValue.substr(index));
+    }
+    
+    bool isSumEqual(string firstWord, string secondWord, string targetWord) {
+        return getNumericalValue(firstWord) + getNumericalValue(secondWord) == getNumericalValue(targetWord);
+    }
+};

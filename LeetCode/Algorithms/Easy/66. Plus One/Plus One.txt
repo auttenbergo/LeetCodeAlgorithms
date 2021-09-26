@@ -1,0 +1,33 @@
+class Solution {
+public:
+    
+    vector<int> copyVector(vector<int>& v){
+        vector<int> rv;
+        for(int i=0; i<v.size();i++){
+            rv.push_back(v[i]);
+        }
+        return rv;
+    }
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> result = copyVector(digits);
+        
+        int lastDigit = result[result.size() - 1];
+        result[result.size()-1]++;
+        if(lastDigit <= 8){
+            return result;
+        }
+        result[result.size()-1] %= 10;
+        int saved = 1;
+        for(int i = result.size() - 2; i >= 0; i --){
+            int sum = result[i] + saved;
+            if(sum < 10){
+                result[i] = sum;
+                return result;
+            }
+            result[i] = sum % 10;
+        }
+        if(saved == 1)
+            result.insert(result.begin(),1);
+        return result;
+    }
+};

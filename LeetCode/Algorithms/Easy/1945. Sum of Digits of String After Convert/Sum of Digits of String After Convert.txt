@@ -1,0 +1,26 @@
+class Solution {
+public:
+    
+    string sumOfDigits(string number){
+        int sum = 0;
+        for(int i=0; i<number.size();i++){
+            sum += (number[i] - '0');
+        }
+        return to_string(sum);
+    }
+    
+    int getLucky(string s, int k) {
+        string number = "";
+        for(int i=0; i<s.size();i++){
+            char current = s[i];
+            int value = (current - 'a') + 1;
+            number += to_string(value);
+        }
+        
+        for(int i=0; i<k;i++){
+            number = sumOfDigits(number);
+        }
+        return stoi(number);
+        
+    }
+};

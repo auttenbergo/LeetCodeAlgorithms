@@ -1,0 +1,41 @@
+class Solution {
+public:
+    
+    unsigned long getEndClosureIndex(vector<int>& nums,int startIndex){
+        
+        int endIndex = startIndex;
+        
+        for(int i=startIndex+1; i<nums.size();i++){
+            unsigned long curr = nums[i];
+            unsigned long prev = nums[i-1];
+            if(curr - prev <= 1)
+                endIndex = i;
+            else
+                break;
+        }
+        return endIndex;
+    }
+    
+    vector<string> summaryRanges(vector<int>& nums) {
+        
+        vector<string> result;
+        
+        int index = 0;
+        while(index < nums.size()){
+            unsigned long startValue = nums[index];
+            int endIndex = getEndClosureIndex(nums,index);
+            unsigned long endValue = nums[endIndex];
+            
+            if(startValue == endValue)
+                result.push_back(to_string((int)startValue));
+            else{
+                string current = to_string((int)startValue) + "->" + to_string((int)endValue);
+                result.push_back(current);
+                index = endIndex+1;
+                continue;
+            }
+            index++;
+        }
+        return result;
+    }
+};

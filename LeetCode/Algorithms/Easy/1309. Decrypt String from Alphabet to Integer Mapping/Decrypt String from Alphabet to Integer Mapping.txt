@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string freqAlphabets(string s) {
+        string result = "";
+        int index = 0;
+        while(index < s.size()){
+            int separatorIndex = index + 2;
+            cout<<index<<" "<<separatorIndex<<endl;
+
+            if(separatorIndex >= s.size() || s[separatorIndex] != '#'){
+                result += ('a' + (s[index]-'0') - 1);
+            } else {
+                int num = stoi(s.substr(index,separatorIndex));
+                result += ('a' + num - 1);
+                index += 2;
+            }
+            index++;
+        }
+        return result;
+    }
+};

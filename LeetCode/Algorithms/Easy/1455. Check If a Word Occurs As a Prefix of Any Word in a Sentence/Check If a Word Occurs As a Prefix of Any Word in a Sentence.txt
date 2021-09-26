@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<string> getWords(string sentence){
+        vector<string> words;
+        string word = "";
+        for(int i=0;i<sentence.size();i++){
+            if(sentence[i] != ' ')
+                word += sentence[i];
+            else{
+                words.push_back(word);
+                word = "";
+            }
+        }
+        words.push_back(word);
+        return words;
+    }
+    int isPrefixOfWord(string sentence, string searchWord) {
+        vector<string> words = getWords(sentence);
+        for(int i=0; i<words.size(); i++){
+            string word = words[i];
+            
+            int index = 0;
+            while(index < searchWord.size() && index < word.size() && searchWord[index] == word[index])
+                index++;
+            if(index == searchWord.size())
+                return (i+1);
+        }
+        return -1;
+    }
+};

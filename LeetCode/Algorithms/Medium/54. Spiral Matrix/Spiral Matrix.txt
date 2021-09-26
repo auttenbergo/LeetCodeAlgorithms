@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int topGap = 1;
+        int rightGap = 0;
+        int bottomGap = 0;
+        int leftGap = 0;
+        
+        int iteration = 0;
+        int maxIteration = matrix.size() * matrix[0].size();
+        
+        int i = 0;
+        int j = 0;
+        
+        vector<int> answer;
+        
+        while(iteration < maxIteration){
+            while(iteration < maxIteration && j <= matrix[0].size() - rightGap - 1){
+                answer.push_back(matrix[i][j]);
+                j++;
+                iteration++;
+            }
+            j--;
+            i++;
+            rightGap++;
+            while(iteration < maxIteration && i <= matrix.size() - bottomGap - 1){
+                answer.push_back(matrix[i][j]);
+                i++;
+                iteration++;
+            }
+            i--;
+            j--;
+            bottomGap++;
+            while(iteration < maxIteration && j >= leftGap){
+                answer.push_back(matrix[i][j]);
+                j--;
+                iteration++;
+            }
+            j++;
+            i--;
+            leftGap++;
+            while(iteration < maxIteration && i >= topGap){
+                answer.push_back(matrix[i][j]);
+                i--;
+                iteration++;
+            }
+            i++;
+            j++;
+            topGap++;
+        }
+        return answer;
+    }
+};

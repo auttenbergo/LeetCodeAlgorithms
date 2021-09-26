@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void findMinimumWithBoundary(TreeNode* root,long& min, long& minBoundary){
+        if(root == NULL)
+            return;
+        if(root->val > minBoundary && root->val < min)
+            min = root->val;
+        findMinimumWithBoundary(root->left,min,minBoundary);
+        findMinimumWithBoundary(root->right,min,minBoundary);
+    }
+    
+    int findSecondMinimumValue(TreeNode* root) {
+        long min = LONG_MAX;
+        long minBoundary = LONG_MIN;
+        findMinimumWithBoundary(root,min,minBoundary);
+        
+        minBoundary = min;
+        min = LONG_MAX;
+        findMinimumWithBoundary(root,min,minBoundary);
+        
+        return (min == LONG_MAX) ? (-1) : (min);
+    }
+};

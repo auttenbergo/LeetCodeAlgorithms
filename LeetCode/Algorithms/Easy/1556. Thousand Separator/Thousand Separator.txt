@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string thousandSeparator(int n) {
+        string number = to_string(n);
+        
+        if(number.size() < 4)
+            return number;
+        
+        string result = number;
+        int index = number.size()-1-2;
+        while(index > 0){
+            result = result.substr(0,index) + "." + result.substr(index);
+            index -= 3;
+        }
+        return result;
+    }
+};

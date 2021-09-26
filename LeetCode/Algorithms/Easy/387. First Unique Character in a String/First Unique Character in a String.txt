@@ -1,0 +1,39 @@
+class Solution {
+public:
+    
+    void fillWithZeros(int a[],int n){
+        for(int i=0;i<n;i++){
+            a[i] = 0;
+        }
+    }
+    
+    void findFrequencies(string s,int f[]){
+        for(int i=0; i<s.size();i++){
+            f[s[i] - 'a']++;
+        }
+    }
+
+    
+    int firstUniqChar(string s) {
+        int f[26]; fillWithZeros(f,26); findFrequencies(s,f);
+        
+        vector<char> uniques;
+        for(int i=0; i<26;i++){
+            if(f[i] == 1)
+                uniques.push_back('a'+i);
+        }
+        
+        if(uniques.size() == 0)
+            return -1;
+        
+        int result = -1;
+        
+        for(int i=0; i<s.size();i++){
+            if(find(uniques.begin(),uniques.end(),s[i]) != uniques.end()){
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+};

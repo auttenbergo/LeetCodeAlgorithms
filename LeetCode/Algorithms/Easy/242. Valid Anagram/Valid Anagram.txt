@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void fillWithZeros(int a[],int n){
+        for(int i=0;i<n;i++){
+            a[i] = 0;
+        }
+    }
+    
+    bool isAnagram(string s, string t) {
+        if(s.size() != t.size())
+            return false;
+        
+        int f1[26]; fillWithZeros(f1,26);
+        int f2[26]; fillWithZeros(f2,26);
+        for(int i=0; i<s.size();i++){
+            f1[s[i] - 'a']++;
+            f2[t[i] - 'a']++;
+        }
+        for(int i=0; i<26;i++){
+            if(f1[i] != f2[i])
+                return false;
+        }
+        return true;
+    }
+};

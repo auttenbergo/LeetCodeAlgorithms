@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool checkZeroOnes(string s) {
+        int longestOneSegment = 0;
+        int longestZeroSegment = 0;
+        
+        int index = 0;
+        while(index < s.size()){
+            int currentOneSegment = 0;
+            int currentZeroSegment = 0;
+            
+            while(index < s.size() && s[index] == '1'){
+                index++;
+                currentOneSegment++;
+            }
+            
+            while(index < s.size() && s[index] == '0'){
+                index++;
+                currentZeroSegment++;
+            }
+            
+            if(currentZeroSegment > longestZeroSegment)
+                longestZeroSegment = currentZeroSegment;
+            if(currentOneSegment > longestOneSegment)
+                longestOneSegment = currentOneSegment;
+        }
+        
+        return longestOneSegment > longestZeroSegment;
+    }
+};

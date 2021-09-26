@@ -1,0 +1,20 @@
+class Solution {
+public:
+    
+    
+    void getSubsetsSum(vector<int>& nums,int index,int current,int& sum){
+        if(index == nums.size()){
+            sum += current;
+            return;
+        }
+        getSubsetsSum(nums,index+1,current,sum);
+        getSubsetsSum(nums,index+1,current ^ nums[index], sum);
+    
+    }
+    
+    int subsetXORSum(vector<int>& nums) {
+        int sum = 0;
+        getSubsetsSum(nums,0,0,sum);
+        return sum;
+    }
+};

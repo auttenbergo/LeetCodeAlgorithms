@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    bool isAllSpaces(string s){
+        for(int i=0; i<s.size();i++){
+            if(s[i] != ' ')
+                return false;
+        }
+        return true;
+    }
+    int lengthOfLastWord(string s) {
+        if(isAllSpaces(s))
+            return 0;
+        
+        int rv = 0;
+        int index = s.size() - 1;
+        while(s[index] == ' ')
+            index --;
+        
+        for(int i = index; i >= 0; i --){
+            if(s[i] != ' ')
+                rv++;
+            else
+                break;
+        }
+        return rv;
+    }
+};

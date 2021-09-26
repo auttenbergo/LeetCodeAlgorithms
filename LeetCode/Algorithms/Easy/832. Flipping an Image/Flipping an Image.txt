@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
+        vector<vector<int>> result = image;
+        for(int i=0; i<result.size();i++){
+            for(int j=0; j<result[i].size()/2;j++){
+                int last = result[i].size() - j - 1;
+                int tmp = result[i][j];
+                result[i][j] = result[i][last];
+                result[i][last] = tmp;
+            }
+            for(int j=0; j<result[i].size();j++){
+                if(result[i][j] == 0)
+                    result[i][j] = 1;
+                else 
+                    result[i][j] = 0;
+            }
+        }
+        return result;
+    }
+};

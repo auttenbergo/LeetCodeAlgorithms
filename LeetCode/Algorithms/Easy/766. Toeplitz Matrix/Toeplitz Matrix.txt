@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    bool doesDiagonalContainSameValues(vector<vector<int>> & matrix,int i,int j){
+        int value = matrix[i][j];
+        int x = i;
+        int y = j;
+        while(x < matrix.size() && y < matrix[x].size()){
+            if(matrix[x][y] != value)
+                return false;
+            x++; y++;
+        } 
+        return true;
+    }
+    
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        for(int i=0; i<matrix[0].size();i++){
+            if(!doesDiagonalContainSameValues(matrix,0,i))
+                return false;
+        }
+        for(int i = 1; i < matrix.size(); i++){
+            if(!doesDiagonalContainSameValues(matrix,i,0))
+                return false;
+        }
+        return true;
+    }
+};

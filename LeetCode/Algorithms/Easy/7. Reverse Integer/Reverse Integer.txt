@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    unsigned long long boundary = pow(2,31);
+    
+    int getLength(int x){
+        int n = x;
+        int length = 0;
+        while(n != 0){
+            length++;
+            n /= 10;
+        }
+        return length;
+    }
+    
+    bool isOutsideRange(unsigned long long x,bool isNegative){
+        if(isNegative && x > boundary)
+            return true;
+        if(!isNegative && x > (boundary-1))
+            return true;
+        return false;
+    }
+    int reverse(int x) {
+        
+        bool isNegative = (x < 0) ? true : false;
+        unsigned long long xx = x;
+        xx = (isNegative) ? (xx * (-1)) : (xx);        
+        
+        int length = getLength(xx);
+        unsigned long long reversed = 0;
+        for(int i=length-1; i>= 0; i--){
+            reversed = (reversed * 10) + xx % 10;
+            xx /= 10;
+        }
+
+        if(isOutsideRange(reversed,isNegative))
+            return 0;
+        
+        int rv = reversed;
+        rv *= (isNegative) ? (-1) : (1);
+        return rv;
+    }
+};

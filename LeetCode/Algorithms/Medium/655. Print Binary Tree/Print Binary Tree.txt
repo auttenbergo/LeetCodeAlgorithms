@@ -1,0 +1,77 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    
+    void findMaximumPathToLeafNode(TreeNode* root,int& max,int depth){
+        if(root == NULL)
+            return;
+        
+        if(root->left == NULL && root->right == NULL && max < depth)
+            max = depth;
+        
+        findMaximumPathToLeafNode(root->left,max,depth+1);
+        findMaximumPathToLeafNode(root->right,max,depth+1);
+    }
+   
+    int getMaxDepth(TreeNode* root) {
+        int max = INT_MIN;
+        if(root == NULL)
+            return 0;
+        findMaximumPathToLeafNode(root,max,1);
+        
+        return max;
+    }
+    
+    vector<vector<string>> printTree(TreeNode* root) {
+        int maximumDepth = getMaxDepth(root);
+        int maximumWidth = pow(2,maximumDepth) - 1;
+        vector<vector<string>> answer(maximumDepth,vector<string>(maximumWidth,""));
+        
+        queue<TreeNode*> bfs;
+        bfs.push(root);
+        int level = 0;
+        int startIndex = answer[0].size() / 2;
+        int gap = answer[level].size();
+        while(!bfs.empty() && level < answer.size()){
+            int size = bfs.size();
+            
+            vector<string> values;
+            
+            int index = startIndex;
+            
+            for(int i=0; i<size;i++){
+                TreeNode* node = bfs.front();
+                bfs.pop();
+                
+                if(node == NULL){
+                    answer[level][index] = "";
+                    bfs.push(NULL);
+                    bfs.push(NULL);
+                } else {
+                    bfs.push(node->left);
+                    bfs.push(node->right);
+                    answer[level][index] = to_string(node->val);
+                }
+                
+                index += (gap+1);
+            }
+            
+            level++;
+            startIndex /= 2;
+            gap = (gap == 0) ? (0) : (gap / 2);
+        }
+        
+        return answer;
+    }
+};

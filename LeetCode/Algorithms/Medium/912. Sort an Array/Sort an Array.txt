@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    int partition(vector<int>& nums,int n,int left,int right){
+        int pivot = nums[right];
+        int i = left-1;
+        for(int j=left; j<right;j++){
+            if(nums[j] < pivot){
+                i++;
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+            }
+        }
+        int tmp = nums[i+1];
+        nums[i+1] = nums[right];
+        nums[right] = tmp;
+        return (i+1);
+
+    }
+
+    int randomizedPartition(vector<int>& nums,int n,int left,int right){
+        int index = left +  rand() % (right - left+1);
+        int tmp = nums[index];
+        nums[index] = nums[right];
+        nums[right] = tmp;
+        return partition(nums,n,left,right);
+    }
+
+    void quicksort(vector<int>& nums,int n,int left,int right){
+        if(left >= right) return;
+        int pivotIndex = randomizedPartition(nums,n,left,right);
+        quicksort(nums,n,left,pivotIndex-1);
+        quicksort(nums,n,pivotIndex+1,right);
+    }
+    
+    vector<int> sortArray(vector<int>& nums) {
+        vector<int> answer = nums;
+        quicksort(answer,answer.size(),0,answer.size()-1);
+        
+        return answer;
+    }
+};

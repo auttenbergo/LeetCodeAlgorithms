@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int binarySearch(vector<int>& a, int leftIndex,int rightIndex,int target){
+        if(leftIndex > rightIndex)
+            return -1;
+        
+        int middle = leftIndex + (rightIndex - leftIndex) / 2;
+        if(a[middle] == target)
+            return middle;
+        if(a[middle] < target)
+            return binarySearch(a,middle+1,rightIndex,target);
+        return binarySearch(a,leftIndex,middle-1,target);
+    }
+    
+    vector<int> getIntersection(vector<int>& nums1, vector<int>& nums2){
+        vector<int> result;
+        for(int i=0; i<nums1.size();i++){
+            int value = nums1[i];
+            
+            int indexOfValue = binarySearch(nums2,0,nums2.size()-1,value);
+            if(indexOfValue != -1){
+                result.push_back(value);
+                nums2.erase(nums2.begin()+indexOfValue);
+            }
+        }
+        return result;
+    }
+    
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        
+        if(nums1.size() <= nums2.size())
+            return getIntersection(nums1,nums2);
+        return getIntersection(nums2,nums1);
+    }
+};

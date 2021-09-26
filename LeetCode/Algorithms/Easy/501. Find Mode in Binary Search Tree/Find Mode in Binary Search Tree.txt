@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void getValuesOfBST(TreeNode* root,vector<int>& result){
+        if(root == NULL)
+            return;
+        result.push_back(root->val);
+        getValuesOfBST(root->left,result);
+        getValuesOfBST(root->right,result);
+    }
+    
+    map<int,int> getFrequencies(vector<int>& v){
+        map<int,int> frequencies;
+        
+        for(int i=0; i<v.size();i++){
+            if(frequencies.find(v[i]) == frequencies.end())
+                frequencies[v[i]] = 1;
+            else 
+                frequencies[v[i]]++;
+        }
+        
+        return frequencies;
+    }
+    
+    int getMaxFrequency(map<int,int>& f){
+        int max = INT_MIN;
+        for(auto itr = f.begin(); itr != f.end(); ++itr){
+            if(itr->second > max)
+                max = itr->second;
+        }
+        return max;
+    }
+    vector<int> getModes(map<int,int>& f,int maxFrequency){
+        vector<int> result;
+        for(auto itr = f.begin(); itr != f.end(); ++itr){
+            if(itr->second == maxFrequency && find(result.begin(),result.end(),itr->first) == result.end())
+                result.push_back(itr->first);
+        }
+        return result;
+    }
+    
+    vector<int> findMode(TreeNode* root) {
+        vector<int> values;
+        getValuesOfBST(root,values);
+        map<int,int> f = getFrequencies(values);
+        int maxFrequency = getMaxFrequency(f);
+        
+        return getModes(f,maxFrequency);
+        
+    }
+};

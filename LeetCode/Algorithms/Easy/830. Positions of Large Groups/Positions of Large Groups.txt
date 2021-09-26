@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<vector<int>> largeGroupPositions(string s) {
+        vector<vector<int>> answer;
+        int index = 0;
+        while(index < s.size()){
+            int startIndex = index;
+            while(index < s.size()-1 && s[index] == s[index+1])
+                index++;
+            int endIndex = index;
+            if(endIndex - startIndex >= 2)
+                answer.push_back({startIndex,endIndex});
+            index++;
+        }
+        return answer;
+    }
+};

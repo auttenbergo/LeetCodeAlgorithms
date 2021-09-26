@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    void getCombinations(int n,int index,vector<int> combination,int k,vector<vector<int>>& answer){
+        if(combination.size() == k){
+            answer.push_back(combination);
+            return;
+        }
+        
+        if(index > n){
+            return;
+        }
+        
+        
+        for(int i=index; i <= n; i++){
+            combination.push_back(i);
+            getCombinations(n,i+1,combination,k,answer);
+            combination.pop_back();
+        }
+    }
+    
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> answer;
+        getCombinations(n,1,{},k,answer);
+        
+        return answer;
+    }
+};

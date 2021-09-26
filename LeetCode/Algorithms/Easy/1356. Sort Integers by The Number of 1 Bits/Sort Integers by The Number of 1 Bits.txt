@@ -1,0 +1,32 @@
+class Solution {
+public:
+    
+    
+    struct {
+        int countNumberOfOneBits(int number){
+            string binary = bitset<32>(number).to_string();
+            int result = 0;
+            for(int i=0; i<binary.size();i++){
+                result += (binary[i] == '1') ? (1) : (0);
+            }
+            return result;
+        }
+        
+        bool operator()(int a, int b)
+        {   
+            int leftBitCount = countNumberOfOneBits(a);
+            int rightBitCount = countNumberOfOneBits(b);
+            if(leftBitCount != rightBitCount)
+                return leftBitCount < rightBitCount;
+            return a < b;
+        }   
+    } bitComparator;
+    
+    vector<int> sortByBits(vector<int>& arr) {
+        
+        vector<int> result = arr;
+        sort(result.begin(),result.end(),bitComparator);
+        
+        return result;
+    }
+};

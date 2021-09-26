@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void fillWithZeros(int a[],int n){
+        for(int i=0;i<n;i++){
+            a[i] = 0;
+        }
+    }
+    void findFrequencies(string str,int a[]){
+        for(int i=0; i<str.size();i++){
+            a[str[i]-'a']++;
+        }
+    }
+    bool canConstruct(string ransomNote, string magazine) {
+        int f1[26]; fillWithZeros(f1,26); findFrequencies(ransomNote,f1);
+        int f2[26]; fillWithZeros(f2,26); findFrequencies(magazine,f2);
+        
+        for(int i=0; i<26;i++){
+            if(f1[i] <= f2[i]){
+                f1[i] = 0;
+            }
+        }
+        for(int i=0; i<26;i++){
+            if(f1[i] != 0)
+                return false;
+        }
+        return true;
+    }
+};

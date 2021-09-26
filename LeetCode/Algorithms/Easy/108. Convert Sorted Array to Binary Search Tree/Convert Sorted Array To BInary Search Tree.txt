@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void addNodeToBST(TreeNode* root,int elem){
+        if(root == NULL){
+            return;
+        }
+        
+        if(root->val <= elem && root->right == NULL){
+            root->right = new TreeNode(elem);
+            return;
+        }
+        if(root->val > elem && root->left == NULL){
+            root->left = new TreeNode(elem);
+            return;
+        }
+        
+        if(root->val <= elem){
+            addNodeToBST(root->right,elem);
+        } else {
+            addNodeToBST(root->left,elem);
+        }
+    }
+    
+    void buildBST(TreeNode* root,vector<int>& nums,int leftIndex,int rightIndex){
+        if(leftIndex > rightIndex)
+            return;
+        
+        int middle = leftIndex + (rightIndex - leftIndex) / 2;
+        addNodeToBST(root,nums[middle]);
+        
+        buildBST(root,nums,leftIndex,middle-1);
+        buildBST(root,nums,middle+1,rightIndex);
+    }
+    
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int middle = nums.size() / 2;
+        TreeNode* root = new TreeNode(nums[middle]);
+        
+        buildBST(root,nums,0,middle-1);
+        buildBST(root,nums,middle+1,nums.size()-1);
+       
+        return root;
+    }
+};

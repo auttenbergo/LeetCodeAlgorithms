@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int result = 0;
+        int current = 1;
+        while(current <= n){
+            result++;
+            n -= current;
+            current++;
+        }
+        return result;
+    }
+};

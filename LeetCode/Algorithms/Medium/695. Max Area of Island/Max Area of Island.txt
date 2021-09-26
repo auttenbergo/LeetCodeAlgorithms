@@ -1,0 +1,81 @@
+class Solution {
+public:
+    
+    struct Location{
+        int x;
+        int y;
+        
+        Location(int x1,int y1){
+            x = x1;
+            y = y1;
+        }
+        
+        bool operator<(const Location& location) const {
+            if(x == location.x)
+                return y < location.y;
+            return x < location.x;
+        }
+    };
+    
+    bool inBounds(vector<vector<int>>& grid,Location location){
+        return location.x >= 0 && location.x < grid.size() && location.y >= 0 && location.y < grid[location.x].size();
+    }
+    
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int maxArea = 0;
+        
+        set<Location> seen;
+
+        for(int i=0; i<grid.size(); i++){
+            for(int j=0; j<grid[i].size();j++){
+                Location start(i,j);
+
+                if(grid[i][j] == 0 || seen.find(start) != seen.end())
+                    continue;
+                
+                seen.insert(start);
+
+                queue<Location> bfs;
+                bfs.push(start);
+                
+                int currArea = 1;
+                
+                while(!bfs.empty()){
+                    Location current = bfs.front();
+                    bfs.pop();
+                    
+                    Location top(current.x-1,current.y);
+                    Location right(current.x,current.y+1);
+                    Location bottom(current.x+1,current.y);
+                    Location left(current.x,current.y-1);
+                    
+                    if(inBounds(grid,top) && grid[top.x][top.y] == 1 && seen.find(top) == seen.end()){
+                        seen.insert(top);
+                        currArea++;
+                        bfs.push(top);
+                    }
+                    if(inBounds(grid,right) && grid[right.x][right.y] == 1 && seen.find(right) == seen.end()){
+                        seen.insert(right);
+                        currArea++;
+                        bfs.push(right);
+                    }
+                    if(inBounds(grid,bottom) && grid[bottom.x][bottom.y] == 1 && seen.find(bottom) == seen.end()){
+                        seen.insert(bottom);
+                        currArea++;
+                        bfs.push(bottom);
+                    }
+                    if(inBounds(grid,left) && grid[left.x][left.y] == 1 && seen.find(left) == seen.end()){
+                        seen.insert(left);
+                        currArea++;
+                        bfs.push(left);
+                    }
+                    
+                }
+                
+                maxArea = max(maxArea,currArea);
+            }
+        }
+        
+        return maxArea;
+    }
+};

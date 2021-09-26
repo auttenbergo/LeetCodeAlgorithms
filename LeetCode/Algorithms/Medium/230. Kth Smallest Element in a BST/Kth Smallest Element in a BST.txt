@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void getValues(TreeNode* root,set<int>& values){
+        if(root == NULL)
+            return;
+        values.insert(root->val);
+        getValues(root->left,values);
+        getValues(root->right,values);
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        set<int> values;
+        getValues(root,values);
+        for(auto itr = values.begin(); itr != values.end(); ++itr){
+            if(k == 1)
+                return *itr;
+            else
+                k--;
+        }
+        return -1;
+        
+    }
+};

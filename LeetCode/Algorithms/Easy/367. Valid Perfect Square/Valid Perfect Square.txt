@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        
+        unsigned long left = 0;
+        unsigned long right = num;
+        
+        while(left <= right){
+            unsigned long middle = left + (right - left)/2;
+            unsigned long squared = middle * middle;
+            if(squared == num)
+                return true;
+            if(squared < num)
+                left = middle+1;
+            else
+                right = middle - 1;
+        }
+        return false;
+    }
+};

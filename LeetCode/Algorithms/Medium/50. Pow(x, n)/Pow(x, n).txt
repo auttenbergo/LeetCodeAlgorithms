@@ -1,0 +1,30 @@
+class Solution {
+public:
+    double myPow(double x, int n) {
+        
+        bool isReversed = (n < 0);
+        
+        unsigned int power = n;
+        if(isReversed)
+            power *= -1;
+        
+        if(n == 1)
+            return (isReversed) ? (1 / x) : (x);
+        if(n == 0)
+            return 1;
+        
+        if(n % 2 == 0){
+            double current = myPow(x,power/2);
+            
+            double answer = current * current;
+            if(isReversed)
+                answer = 1 / answer;
+            return answer;
+        }
+        double current = myPow(x,power/2);
+        double answer = current * current * x;
+        if(isReversed)
+            answer = 1 / answer;
+        return answer;
+    }
+};

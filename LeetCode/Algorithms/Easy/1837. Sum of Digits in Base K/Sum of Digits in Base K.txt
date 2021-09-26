@@ -1,0 +1,18 @@
+class Solution {
+public:
+    
+    string convertToKBase(int n,int k){
+        if(n < k)
+            return to_string(n);
+        return convertToKBase(n / k,k) + to_string(n % k);
+    }
+    
+    int sumBase(int n, int k) {
+        string kBase = convertToKBase(n,k);
+        int sum = 0;
+        for(int i=0;i<kBase.size();i++){
+            sum += (kBase[i] - '0');
+        }
+        return sum;
+    }
+};

@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int getMiddleSum(vector<int>& nums,int left,int middle,int right){
+        int leftSumMax = INT_MIN;
+        
+        int sum = 0;
+        for(int i=middle; i>=0; i--){
+            sum += nums[i];
+            if(sum >= leftSumMax)
+                leftSumMax  = sum;
+        }
+        
+        int rightSumMax = INT_MIN;
+        sum = 0;
+        for(int i=middle+1; i<=right; i++){
+            sum += nums[i];
+            if(sum >= rightSumMax)
+                rightSumMax = sum;
+        }
+        return leftSumMax + rightSumMax;
+    }
+    
+    int maxSubArr(vector<int>& nums,int left,int right){
+        
+        if(left >= right)
+            return nums[left];
+        
+        int middle = left + (right - left) / 2;
+        int leftSum = maxSubArr(nums,left,middle);
+        int rightSum = maxSubArr(nums,middle+1,right);
+        int middleSum = getMiddleSum(nums,left,middle,right);
+        
+        if(leftSum >= rightSum && leftSum >= middleSum)
+            return leftSum;
+        if(rightSum >= leftSum && rightSum >= middleSum)
+            return rightSum;
+        
+        return middleSum;
+    }
+    
+    int maxSubArray(vector<int>& nums) {
+        return maxSubArr(nums,0,nums.size()-1);
+    }
+};

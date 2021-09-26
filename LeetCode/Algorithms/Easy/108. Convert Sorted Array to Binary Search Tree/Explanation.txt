@@ -1,0 +1,9 @@
+It should be balanced. so when we have indexes:
+
+0 1 2 3 4 5 6
+
+first: length/2; 
+second: first - length/4; first + length/4;
+third: second - length/8; second + length/8;
+
+etc

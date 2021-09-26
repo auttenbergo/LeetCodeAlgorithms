@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        map<int,int> edgeCount;
+        for(int i=0;i<edges.size();i++){
+            int vertex1 = edges[i][0];
+            int vertex2 = edges[i][1];
+            
+            if(edgeCount.find(vertex1) != edgeCount.end())
+                edgeCount[vertex1]++;
+            else
+                edgeCount[vertex1] = 1;
+            
+            if(edgeCount.find(vertex2) != edgeCount.end())
+                edgeCount[vertex2]++;
+            else
+                edgeCount[vertex2] = 1;
+        }
+        for(auto itr = edgeCount.begin(); itr != edgeCount.end(); ++itr){
+            if(itr->second == edgeCount.size() - 1)
+                return itr->first;
+        }
+        return -1;
+    }
+};

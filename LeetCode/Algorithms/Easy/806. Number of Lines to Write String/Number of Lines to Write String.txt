@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> numberOfLines(vector<int>& widths, string s) {
+        
+        int lines = 1;
+        int currLineLength = 0;
+        for(int i=0; i<s.size();i++){
+            char curr = s[i];
+            int width = widths[curr - 'a'];
+            if(currLineLength + width > 100){
+                lines++;
+                currLineLength = width;
+                continue;
+            } else {
+                currLineLength += width;
+            }
+        }
+        vector<int> result = {lines,currLineLength};
+        return result;
+    }
+};

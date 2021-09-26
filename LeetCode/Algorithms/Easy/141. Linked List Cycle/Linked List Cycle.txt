@@ -1,0 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    bool areSameNodes(ListNode* n1,ListNode* n2){
+        if(n1 == NULL && n2 == NULL)
+            return true;
+        
+        if(n1 != NULL && n2 == NULL || n1 == NULL && n2 != NULL)
+            return false;
+        
+        if(n1->val != n2->val)
+            return false;
+        if(n1->next != n2->next)
+            return false;
+        return true;
+    }
+    
+    bool vectorContains(vector<ListNode*>& used, ListNode* node){
+        for(int i=0; i<used.size();i++){
+            ListNode* n = used[i];
+            if(areSameNodes(n,node))
+                return true;
+        }
+        return false;
+    }
+    bool hasCycle(ListNode *head) {
+        vector<ListNode*> used;
+        while(head != NULL){
+            used.push_back(head);
+            head = head->next;
+            if(vectorContains(used,head)){
+                return true;
+            }
+        }
+        return false;
+    }
+};

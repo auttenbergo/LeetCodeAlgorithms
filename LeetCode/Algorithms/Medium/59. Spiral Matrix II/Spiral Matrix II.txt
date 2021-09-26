@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        
+        vector<vector<int>> answer;
+        for(int i=0; i<n; i++)
+            answer.push_back(vector<int>(n,0));
+        
+        int topGap = 1;
+        int rightGap = 0;
+        int bottomGap = 0;
+        int leftGap = 0;
+        
+        int iteration = 0;
+        int maxIteration = n*n;
+        
+        int i = 0;
+        int j = 0;
+        
+        
+        while(iteration < maxIteration){
+            while(iteration < maxIteration && j <= n - rightGap - 1){
+                answer[i][j] = iteration+1;
+                j++;
+                iteration++;
+            }
+            j--;
+            i++;
+            rightGap++;
+            while(iteration < maxIteration && i <= n - bottomGap - 1){
+                answer[i][j] = iteration+1;
+                i++;
+                iteration++;
+            }
+            i--;
+            j--;
+            bottomGap++;
+            while(iteration < maxIteration && j >= leftGap){
+                answer[i][j] = iteration+1;
+                j--;
+                iteration++;
+            }
+            j++;
+            i--;
+            leftGap++;
+            while(iteration < maxIteration && i >= topGap){
+                answer[i][j] = iteration+1;
+                i--;
+                iteration++;
+            }
+            i++;
+            j++;
+            topGap++;
+        }
+        return answer;
+    }
+};

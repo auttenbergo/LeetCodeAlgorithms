@@ -1,0 +1,40 @@
+class Solution {
+public:
+    
+    int binarySearch(vector<int>& v,int left,int right,int target){
+        if(left > right)
+            return -1;
+        
+        int middle = left + (right - left) / 2;
+        if(v[middle] == target)
+            return middle;
+        if(v[middle] < target)
+            return binarySearch(v,middle+1,right,target);
+        
+        return binarySearch(v,left,middle-1,target);
+    }
+    
+    string getPlaceIndicator(int index){
+        switch(index){
+            case 0: return "Gold Medal";
+            case 1: return "Silver Medal";
+            case 2: return "Bronze Medal";
+            default: return to_string(index+1);
+        }
+    }
+    
+    vector<string> findRelativeRanks(vector<int>& score) {
+        
+        vector<string> result;
+        
+        vector<int> sorted = score;
+        sort(sorted.begin(),sorted.end());
+        
+        for(int i=0; i<score.size();i++){
+            int index = binarySearch(sorted,0,sorted.size()-1,score[i]);
+            int reversedIndex = sorted.size() - index - 1;
+            result.push_back(getPlaceIndicator(reversedIndex));
+        }
+        return result;
+    }
+};

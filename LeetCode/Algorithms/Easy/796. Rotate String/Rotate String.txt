@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        if(s == goal)
+            return true;
+        string curr = s;
+        for(int i=0; i<s.size();i++){
+            curr = curr.substr(1) + curr[0];
+            if(curr == goal)
+                return true;
+        }
+        return false;
+    }
+};

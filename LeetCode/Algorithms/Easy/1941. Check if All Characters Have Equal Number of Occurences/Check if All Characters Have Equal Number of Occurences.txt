@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool areOccurrencesEqual(string s) {
+        map<char,int> frequencies;
+        for(int i=0;i<s.size();i++){
+            if(frequencies.find(s[i]) == frequencies.end())
+                frequencies[s[i]] = 1;
+            else
+                frequencies[s[i]]++;
+        }
+        int frequency = (frequencies.begin())->second;
+        for(auto itr = frequencies.begin(); itr != frequencies.end(); ++itr)
+            if(frequency != itr->second)
+                return false;
+        return true;
+    }
+};

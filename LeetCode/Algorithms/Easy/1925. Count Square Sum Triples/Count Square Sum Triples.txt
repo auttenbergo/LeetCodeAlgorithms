@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int countTriples(int n) {
+        int result = 0;
+        for(int i=1; i<=n;i++){
+            for(int j=i+1; j<=n;j++){
+                int a2 = i*i;
+                int b2 = j*j;
+                
+                int c = sqrt(a2+b2);
+                int c2 = c*c;
+                if(c2 == (a2+b2) && c <= n)
+                    result+=2;
+            }
+        }
+        return result;
+    }
+};

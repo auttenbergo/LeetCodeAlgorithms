@@ -1,0 +1,45 @@
+class Solution {
+public:
+    
+    bool isLowercase(char c){
+        return c >= 'a' && c <= 'z';
+    }
+    bool isDigit(char c){
+        return c >= '0' && c <= '9';
+    }
+    
+    string reformat(string s) {
+        string lowercases = "";
+        string digits = "";
+        for(int i=0; i<s.size();i++){
+            if(isLowercase(s[i]))
+                lowercases += s[i];
+            else if(isDigit(s[i]))
+                digits += s[i];
+        }
+        
+        int sizeDiff = lowercases.size() - digits.size();
+        int minSize = min(lowercases.size(),digits.size());
+        bool isLowercaseLess = lowercases.size() < digits.size();
+        
+        if(sizeDiff > 1 || sizeDiff < -1) 
+            return "";
+        
+        string result = "";
+        for(int i=0; i<minSize;i++){
+            if(isLowercaseLess){
+                result += digits[i];
+                result += lowercases[i];
+            } else {
+                result += lowercases[i];
+                result += digits[i];
+            }
+            
+        }
+        if(sizeDiff == 0)
+            return result;
+        
+        result += (lowercases.size() < digits.size()) ? (digits[digits.size()-1]) : (lowercases[lowercases.size()-1]);
+        return result;
+    }
+};

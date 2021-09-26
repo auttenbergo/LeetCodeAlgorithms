@@ -1,0 +1,101 @@
+class Solution {
+public:
+    
+    struct Location{
+        int x;
+        int y;
+    };
+    Location createLoc(int x,int y){
+        Location loc;
+        loc.x = x;
+        loc.y = y;
+        return loc;
+    }
+    
+    bool inBounds(vector<vector<int>>& grid,Location loc){
+        if(loc.x >= 0 && loc.x < grid.size() && loc.y >= 0 && loc.y < grid[0].size())
+            return true;
+        return false;
+    }
+    bool isInIsland(vector<vector<int>>& grid,Location loc){
+        return grid[loc.x][loc.y] == 1;
+    }
+    
+    int getPerimeterOfLocation(vector<vector<int>>& grid,Location loc){
+        int result = 0;
+        
+        Location left = createLoc(loc.x,loc.y-1);
+        Location right = createLoc(loc.x,loc.y+1);
+        Location up = createLoc(loc.x-1,loc.y);
+        Location down = createLoc(loc.x+1,loc.y);
+        
+        if(!(inBounds(grid,left) && grid[left.x][left.y] == 1))
+            result++;
+        if(!(inBounds(grid,right) && grid[right.x][right.y] == 1))
+            result++;
+        if(!(inBounds(grid,up) && grid[up.x][up.y] == 1))
+            result++;
+        if(!(inBounds(grid,down) && grid[down.x][down.y] == 1))
+            result++;
+        
+        return result;
+    }
+    
+    int islandPerimeter(vector<vector<int>>& grid) {
+        
+        bool used[grid.size()][grid[0].size()];
+        for(int i=0; i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++){
+                used[i][j] = false;
+            }
+        }
+        
+        for(int i=0; i<grid.size();i++){
+            for(int j=0; j<grid[i].size();j++){
+                if(grid[i][j] == 1){
+                    
+                    int perimeter = 0;
+                    
+                    queue<Location> bfs;
+                    Location start = createLoc(i,j);
+                    bfs.push(start);
+                    used[i][j] = true;
+                    
+                    while(!bfs.empty()){
+                        Location curr = bfs.front();
+                        bfs.pop();
+                        perimeter += getPerimeterOfLocation(grid,curr);
+
+                        
+                        Location left = createLoc(curr.x,curr.y-1);
+                        Location right = createLoc(curr.x,curr.y+1);
+                        Location up = createLoc(curr.x-1,curr.y);
+                        Location down = createLoc(curr.x+1,curr.y);
+                        
+                        if(inBounds(grid,left) && !used[left.x][left.y] && isInIsland(grid,left)){
+                            bfs.push(left);
+                            used[left.x][left.y] = true;
+                        }
+                        if(inBounds(grid,right) && !used[right.x][right.y] && isInIsland(grid,right)){
+                            bfs.push(right);
+                            used[right.x][right.y] = true;
+                        }
+                        if(inBounds(grid,up) && !used[up.x][up.y] && isInIsland(grid,up)){
+                            bfs.push(up);
+                            used[up.x][up.y] = true;
+                        }
+                        if(inBounds(grid,down) && !used[down.x][down.y] && isInIsland(grid,down)){
+                            bfs.push(down);
+                            used[down.x][down.y] = true;
+                        }
+                        
+                    }
+                    return perimeter;
+
+                }
+            }
+        }
+        
+        return 0;
+    }
+};
