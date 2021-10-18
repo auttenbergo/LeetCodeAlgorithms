@@ -1,0 +1,78 @@
+class Solution {
+public:
+
+    bool isValidPlace(vector<string>& board,int x,int y){
+        /* Horizontal Check */
+        for (int i = 0; i < board.size(); i++) {
+            if (board[x][i] == 'Q') return false;
+        }
+        /* Vertical Check */
+        for (int i = 0; i < board.size(); i++) {
+            if (board[i][y] == 'Q') return false;
+        }
+        /* Upper left diagonal */
+        int dx = x - 1;
+        int dy = y - 1;
+        while (dx >= 0 && dy >= 0) {
+            if (board[dx][dy] == 'Q') return false;
+            dx--;
+            dy--;
+        }
+        /* Upper right diagonal */
+        dx = x - 1;
+        dy = y + 1;
+        while (dx >= 0 && dy < board.size()) {
+            if (board[dx][dy] == 'Q') return false;
+            dx--;
+            dy++;
+        }
+        /* Lower left diagonal */
+        dx = x + 1;
+        dy = y - 1;
+        while (dx < board.size() && dy >= 0) {
+            if (board[dx][dy] == 'Q') return false;
+            dx++;
+            dy--;
+        }
+        /* Lower right diagonal */
+        dx = x + 1;
+        dy = y + 1;
+        while (dx < board.size() && dy < board.size()) {
+            if (board[dx][dy] == 'Q') return false;
+            dx++;
+            dy++;
+        }
+        return true;
+    }
+    
+    void findSolutions(vector<vector<string>>& answer,vector<string>& board,int row){
+        if(row >= board.size()){
+            answer.push_back(board);
+            return;
+        }
+        for(int i=0; i<board[row].size();i++){
+            if(!isValidPlace(board,row,i)){
+                continue;
+            }
+            board[row][i] = 'Q';
+            findSolutions(answer,board,row+1);
+            board[row][i] = '.';
+        }
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> solutions;
+        
+        vector<string> board;
+        for(int i=0; i<n;i++){
+            string row = "";
+            for(int j=0; j<n;j++)
+                row += ".";
+            board.push_back(row);
+        }
+        findSolutions(solutions,board,0);
+        
+        return solutions;
+        
+    }
+};
