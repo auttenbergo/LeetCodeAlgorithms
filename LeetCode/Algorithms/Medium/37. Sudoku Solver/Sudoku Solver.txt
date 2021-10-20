@@ -1,0 +1,73 @@
+class Solution {
+public:
+    
+    struct Location{
+        int x;
+        int y;
+        
+        Location(int x1,int y1){
+            x = x1;
+            y = y1;
+        }
+    };
+    
+    vector<Location> getEmptySpots(vector<vector<char>>& board){
+        vector<Location> locations;
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                if(board[i][j] == '.')
+                    locations.push_back(Location(i,j));
+            }
+        }
+        
+        return locations;
+    }
+    
+    void removeElementFromVector(vector<char>& v, char elem) {
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] == elem) {
+            v.erase(v.begin() + i);
+            return;
+        }
+    }
+}
+    
+    vector<char> getValidValuesForLocation(vector<vector<char>>& board,Location location){
+        vector<char> valids = {'1','2','3','4','5','6','7','8','9'};
+        
+        for(int i=0; i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                removeElementFromVector(valids,board[i][location.y]);
+                removeElementFromVector(valids,board[location.x][j]);
+                
+                int blockX = location.x / 3 * 3 + i / 3;
+                int blockY = location.y / 3 * 3 + i % 3;
+                removeElementFromVector(valids, board[blockX][blockY]);
+            }
+        }
+        
+        return valids;
+    }
+    
+    bool sudokuSolver(vector<vector<char>>& board,vector<Location>& emptyLocations,int emptyIndex){
+        if(emptyIndex >= emptyLocations.size())
+            return true;
+        
+        Location emptyLocation = emptyLocations[emptyIndex];
+        vector<char> possibilities = getValidValuesForLocation(board,emptyLocation);
+        
+        for(int i=0; i<possibilities.size();i++){
+            char value = possibilities[i];
+            board[emptyLocation.x][emptyLocation.y] = value;
+            if(sudokuSolver(board,emptyLocations,emptyIndex+1))
+                return true;
+            board[emptyLocation.x][emptyLocation.y] = '.';
+        }
+        return false;
+    }
+    
+    void solveSudoku(vector<vector<char>>& board) {
+        vector<Location> emptySpots = getEmptySpots(board);
+        sudokuSolver(board,emptySpots,0);
+    }
+};

@@ -1,0 +1,67 @@
+class Solution {
+public:
+    
+    bool areRowsValid(vector<vector<char>>& board){
+        for(int row=0; row<board.size(); row++){
+            set<char> numbers;
+            for(int column = 0; column < board[row].size(); column++){
+                char number = board[row][column];
+                
+                if(number == '.')
+                    continue;
+                
+                if(numbers.find(number) == numbers.end())
+                    numbers.insert(number);
+                else
+                    return false;
+            }
+        }
+        return true;
+    }
+    bool areColumnsValid(vector<vector<char>>& board){
+        for(int column=0; column<board[0].size(); column++){
+            set<char> numbers;
+            for(int row = 0; row < board.size(); row++){
+                char number = board[row][column];
+                if(number == '.')
+                    continue;
+                if(numbers.find(number) == numbers.end())
+                    numbers.insert(number);
+                else
+                    return false;
+            }
+        }
+        return true;
+    }
+    
+    bool areQuadrandsValid(vector<vector<char>>& board){
+        for(int part = 0; part < 9; part++){
+            int startRow = (part / 3) * 3;
+            int startColumn = (part % 3) * 3;
+            
+            set<char> numbers;
+            for(int row = startRow; row < startRow + 3; row++){
+                for(int column = startColumn; column < startColumn + 3; column++){
+                    char number = board[row][column];
+                    if(number == '.')
+                        continue;
+                    if(numbers.find(number) == numbers.end())
+                        numbers.insert(number);
+                    else
+                        return false;
+                }
+            }
+            
+        }
+        return true;
+    }
+    
+    bool isValidSudoku(vector<vector<char>>& board) {
+        if(!areRowsValid(board))
+            return false;
+        if(!areColumnsValid(board))
+            return false;
+        
+        return areQuadrandsValid(board);
+    }
+};
