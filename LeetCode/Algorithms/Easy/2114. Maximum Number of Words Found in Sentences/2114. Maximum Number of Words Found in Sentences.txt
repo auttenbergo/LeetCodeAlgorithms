@@ -1,0 +1,21 @@
+class Solution {
+public:
+    
+    int countWords(string sentence){
+        int result = 0;
+        for(int i=0; i<sentence.size();i++)
+            if(sentence[i] == ' ')
+                result++;
+        
+        return ++result;
+    }
+    
+    int mostWordsFound(vector<string>& sentences) {
+        int result = 0;
+        for(int i=0; i<sentences.size();i++){
+            string sentence = sentences[i];
+            result = max(result,countWords(sentence));
+        }
+        return result;
+    }
+};

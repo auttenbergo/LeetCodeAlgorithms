@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int countElements(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int firstPointer = 0;
+        int lastPointer = nums.size()-1;
+        while(firstPointer + 1 < nums.size() && nums[firstPointer] == nums[firstPointer+1])
+            firstPointer++;
+        if(firstPointer == lastPointer)
+            return 0;
+        while(lastPointer - 1 >= 0 && nums[lastPointer] == nums[lastPointer - 1])
+            lastPointer--;
+        
+        return lastPointer - firstPointer - 1;
+    }
+};

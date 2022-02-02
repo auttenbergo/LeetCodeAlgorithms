@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkString(string s) {
+        bool foundB = false;
+        for(int i=0; i<s.size();i++){
+            if(!foundB && s[i] == 'b')
+                foundB = true;
+            if(s[i] == 'a' && foundB)
+                return false;
+        }
+        return true;
+    }
+};
