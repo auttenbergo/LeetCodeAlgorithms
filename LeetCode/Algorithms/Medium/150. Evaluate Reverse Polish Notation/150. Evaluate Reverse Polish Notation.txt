@@ -1,0 +1,35 @@
+class Solution {
+public:
+    
+    bool isOperand(string c){
+        return c == "+" || c == "-" || c == "*" || c == "/";
+    }
+    
+    int evaluate(int a,int b,char operand){
+        switch(operand){
+            case '+': return a+b;
+            case '-': return a-b;
+            case '*': return a*b;
+            case '/': return a/b;
+            default: return 0;
+        }
+    }
+    
+    int evalRPN(vector<string>& tokens) {
+        stack<int> numbers;
+        for(int i=0; i<tokens.size();i++){
+            string token = tokens[i];
+            if(isOperand(token)){
+                int n2 = numbers.top(); numbers.pop();
+                int n1 = numbers.top(); numbers.pop();
+                
+                int calculated = evaluate(n1,n2,token[0]);
+                numbers.push(calculated);
+            } else {
+                
+                numbers.push(stoi(token));
+            }
+        }
+        return numbers.top();
+    }
+};

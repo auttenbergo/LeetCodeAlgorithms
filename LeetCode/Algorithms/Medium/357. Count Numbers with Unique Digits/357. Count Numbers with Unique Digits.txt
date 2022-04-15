@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    int findCountN(int n){
+        int result = 9;
+        int start = 9;
+        n--;
+        while(n > 0){
+            result *= start;
+            start--;
+            n--;
+        }
+        return result;
+    }
+    
+    int countNumbersWithUniqueDigits(int n) {
+        if(n == 0)
+            return 1;
+        int result = 10;
+        
+        for(int i=2; i<=n; i++){
+            int count = findCountN(i);
+            result += count;
+        }
+        return result;
+        
+        
+    }
+};
