@@ -1,0 +1,30 @@
+class Solution {
+public:
+    // int dp[20]{};
+    // int numTrees(int n) {
+    //     if(n <= 1)
+    //         return 1;
+    //     if(dp[n])
+    //         return dp[n];
+    //     for(int i=1; i<=n; i++){
+    //                 // Left         // Right
+    //         dp[n] += numTrees(i-1) * numTrees(n-i);
+    //     }
+    //     return dp[n];
+    // }
+    
+    long ncm(int n, int m){
+        long ans = 1;
+        for(int i = 0; i < m; i++) {
+            ans *= n-i;
+            ans /= i+1;
+        }
+        return ans; 
+    }
+    
+    int numTrees(int n){
+        if(n <= 1)
+            return 1;
+        return ncm(2*n,n) / (n+1);
+    }
+};
