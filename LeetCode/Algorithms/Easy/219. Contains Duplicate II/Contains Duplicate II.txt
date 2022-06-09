@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int result = 0;
+        map<int,int> values;
+        for(int i=0;i<nums.size();i++){
+            if(values.find(nums[i]) == values.end()){
+                values[nums[i]] = i;
+            } else{
+                if(abs(values[nums[i]] - i) <= k)
+                    return true;
+                values[nums[i]] = i;
+            }
+        }
+        return false;
+    }
+};

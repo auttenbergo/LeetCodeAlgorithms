@@ -1,0 +1,21 @@
+class Solution {
+public:
+    map<int,int> frequencies;
+    
+    vector<int> frequencySort(vector<int>& nums) {
+        for(int i=0;i<nums.size();i++){
+            if(frequencies.find(nums[i]) == frequencies.end())
+                frequencies[nums[i]] = 1;
+            else
+                frequencies[nums[i]]++;
+        }
+        sort(nums.begin(),nums.end(),[this](int a, int b) {
+            int fa = frequencies[a];
+            int fb = frequencies[b];
+            if(fa == fb)
+                return a > b;
+            return fa < fb; 
+        });
+        return nums;
+    }
+};

@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string destCity(vector<vector<string>>& paths) {
+        map<string,int> helper;
+        for(vector<string> path: paths){
+            helper[path[0]] += 1;
+            helper[path[1]] += 0;
+        }
+        for(auto iter = helper.begin(); iter != helper.end(); iter++){
+            if(iter->second == 0)
+                return iter->first;
+        }
+        return "";
+        
+    }
+};

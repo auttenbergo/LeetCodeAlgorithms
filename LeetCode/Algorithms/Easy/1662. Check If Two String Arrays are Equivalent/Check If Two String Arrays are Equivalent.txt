@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        int l = 0, ll = 0;
+        int r = 0, rr = 0;
+        while(l < word1.size() && r < word2.size()){
+            if(word1[l][ll++] != word2[r][rr++])
+                return false;
+            if(ll >= word1[l].size()){
+                l++;
+                ll = 0;
+            }
+            if(rr >= word2[r].size()){
+                r++;
+                rr = 0;
+            }
+        }
+        return (l == word1.size() && r == word2.size());
+    }
+};

@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int countRangeSum(int* prefixSum, int size, int left, int right){
+        left = (left < 0) ? size + left : left % size;
+        right = (right < 0) ? size + right : right % size;
+        
+        if(left == 0)
+            return prefixSum[right];
+        
+        if(left <= right)
+            return prefixSum[right] - prefixSum[left-1];
+        return prefixSum[size-1] - prefixSum[left-1] + prefixSum[right];
+    }
+    
+    vector<int> decrypt(vector<int>& code, int k) {
+        if(k == 0)
+            return vector<int>(code.size(),0);
+        
+        int prefixSum[code.size()];
+        prefixSum[0] = code[0];
+        for(int i=1; i<code.size();i++){
+            prefixSum[i] = prefixSum[i-1] + code[i];
+        }
+        
+        vector<int> result(code);
+        for(int i=0; i<code.size();i++){
+            if(k > 0){
+                result[i] = countRangeSum(prefixSum,result.size(),i+1,i+k);
+            }else{
+                result[i] = countRangeSum(prefixSum,result.size(),i+k,i-1);
+            }
+        }
+        return result;
+        
+        
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string reversePrefix(string word, char ch) {
+        string result = word;
+        int rightIdx = result.size()-1;
+        int firstOccurenceIdx = -1;
+        while(rightIdx >= 0){
+            if(word[rightIdx] == ch)
+                firstOccurenceIdx = rightIdx;
+            rightIdx --;
+        }
+        if(firstOccurenceIdx <= 0)
+            return result;
+        int leftIdx = 0;
+        rightIdx = firstOccurenceIdx;
+        while(leftIdx < rightIdx){
+            char tmp = result[leftIdx];
+            result[leftIdx] = result[rightIdx];
+            result[rightIdx] = tmp;
+            leftIdx++;
+            rightIdx--;
+        }
+        return result;
+    }
+};
